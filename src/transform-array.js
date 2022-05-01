@@ -14,34 +14,30 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
-  throw new NotImplementedError('Not implemented');
-  // if(!Array.isArray(arr)){
-  //   throw new Error('\'arr\' parameter must be an instance of the Array!');
-  // }
-  // let transformed = [];
-  // for (let index = 0; index < arr.length; index++) {
-  //   if(typeof arr[index] == 'string'){
-  //     switch (arr[index] ) {
-  //       case '--discard-next':
-  //         index += 2;
-  //         break;
-  //       case '--double-next':
-  //         if(arr[index]) transformed.push(arr[index])
-  //         break;
-  //       case '--discard-prev':
-  //         transformed.pop()
-  //         break;
-  //       case '--double-prev':
-  //         if(arr[index-1]) transformed.push(arr[index-1])
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }else{
-  //     transformed.push(arr[index])
-  //   }    
-  // }
-  // return transformed
+  if(!Array.isArray(arr)){
+    throw new Error('\'arr\' parameter must be an instance of the Array!');
+  }
+  let transformed = [];
+  for (let index = 0; index < arr.length; index++) {
+    switch (arr[index] ) {
+      case '--discard-next':
+        index += 2;
+        break;
+      case '--double-next':
+        if(arr[index+1]) transformed.push(arr[index+1])
+        break;
+      case '--discard-prev':
+        transformed.pop()
+        break;
+      case '--double-prev':
+        if(arr[index-1]) transformed.push(arr[index-1])
+        break;
+      default:
+        transformed.push(arr[index])
+        break;
+    } 
+  }
+  return transformed
 }
 
 module.exports = {
